@@ -34,21 +34,19 @@
   align-items: center;
 }
 
-/* Visuel du hero (placeholder photo) */
+/* Visuel du hero */
 .hero__visual {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 5 / 4;
-  background:
-    repeating-linear-gradient(135deg, var(--grey-100) 0 14px, var(--grey-50) 14px 28px);
-  border: 1px dashed var(--blue-200);
-  display: grid;
-  place-items: center;
-  color: var(--color-text-subtle);
-  font-size: var(--text-sm);
-  text-align: center;
-  padding: var(--space-lg);
+  background: var(--grey-50);
+}
+.hero__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center; /* garde les visages bien cadrés */
 }
 
 /* --- Bandeau de confiance / affiliation ---------------- */
@@ -110,6 +108,21 @@
 
 /* --- Équipe -------------------------------------------- */
 .team-member { text-align: left; }
+.team-member__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--grey-100);
+}
+.team-member__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--dur) var(--ease);
+}
+.team-member:hover .team-member__photo img { transform: scale(1.03); }
 .team-member__name { font-family: var(--font-display); font-size: var(--text-lg); margin-top: var(--space-md); }
 .team-member__role { font-size: var(--text-sm); color: var(--color-text-subtle); margin-top: var(--space-3xs); }
 
@@ -134,13 +147,13 @@
    BREAKPOINTS
    ============================================================= */
 
-/* Tablette ≥ 640px */
+/* Tablette ≥ 640px : 2 colonnes */
 @media (min-width: 640px) {
-  .grid--2, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
   .hero__actions { flex-wrap: nowrap; }
 }
 
-/* Desktop ≥ 900px */
+/* Desktop ≥ 900px : pleine grille */
 @media (min-width: 900px) {
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
   .grid--4 { grid-template-columns: repeat(4, 1fr); }
@@ -172,8 +185,15 @@
   .nav__list { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
   .nav__link { display: block; padding: var(--space-sm) 0; border-bottom: 1px solid var(--grey-100); }
   .nav__link::after { display: none; }
-  .nav .btn { margin-top: var(--space-md); }
-  .header-actions .btn--primary { display: none; } /* CTA repliée dans le menu sur mobile */
+  /* CTA unique : reste visible sur mobile, à gauche du bouton menu.
+     On réduit légèrement son padding pour cohabiter avec le hamburger. */
+  .header-actions { gap: var(--space-2xs); }
+  .header-actions .btn--primary { padding-inline: 1.05em; font-size: var(--text-xs); }
+}
+
+/* Très petits écrans : on réduit le libellé du CTA pour éviter le débordement */
+@media (max-width: 380px) {
+  .header-actions .btn--primary { padding-inline: 0.9em; }
 }
 
 /* Footer responsive */

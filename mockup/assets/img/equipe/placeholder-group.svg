@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img" aria-label="Photo de groupe à venir">
+  <rect width="1000" height="800" fill="#f2f4f7"/>
+  <g fill="#c7cde9">
+    <circle cx="280" cy="300" r="70"/><path d="M180 540c0-70 45-115 100-115s100 45 100 115z"/>
+    <circle cx="430" cy="280" r="70"/><path d="M330 520c0-70 45-115 100-115s100 45 100 115z"/>
+    <circle cx="580" cy="280" r="70"/><path d="M480 520c0-70 45-115 100-115s100 45 100 115z"/>
+    <circle cx="730" cy="300" r="70"/><path d="M630 540c0-70 45-115 100-115s100 45 100 115z"/>
+  </g>
+  <text x="500" y="700" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" fill="#6b7280">Photo de groupe à déposer (groupe.jpg)</text>
+</svg>
