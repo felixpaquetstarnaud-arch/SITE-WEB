@@ -1,0 +1,185 @@
+/* =============================================================
+   SECTIONS DE PAGE (accueil) — assemblage des composants
+   Charge APRÈS components.css.
+   Approche mobile-first : styles de base = mobile,
+   media queries = écrans plus larges.
+   ============================================================= */
+
+/* --- Hero ---------------------------------------------- */
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 8vw, 6.5rem);
+  background:
+    radial-gradient(120% 90% at 85% -10%, var(--blue-50) 0%, transparent 55%),
+    var(--white);
+  overflow: hidden;
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+.hero__content { max-width: 40ch; }
+.hero h1 { margin-bottom: var(--space-md); }
+.hero .lead { margin-bottom: var(--space-lg); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.hero__trust {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+/* Visuel du hero (placeholder photo) */
+.hero__visual {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 5 / 4;
+  background:
+    repeating-linear-gradient(135deg, var(--grey-100) 0 14px, var(--grey-50) 14px 28px);
+  border: 1px dashed var(--blue-200);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-subtle);
+  font-size: var(--text-sm);
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+/* --- Bandeau de confiance / affiliation ---------------- */
+.trustbar {
+  border-block: 1px solid var(--color-border);
+  background: var(--grey-50);
+  padding-block: var(--space-lg);
+}
+.trustbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md) var(--space-xl);
+  text-align: center;
+}
+.trustbar__item {
+  font-size: var(--text-sm);
+  color: var(--color-text-subtle);
+  display: inline-flex; align-items: center; gap: var(--space-2xs);
+}
+
+/* --- Approche (liste de valeurs) ----------------------- */
+.value {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+.value__mark {
+  flex: none;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+}
+.value h3 { font-family: var(--font-body); font-size: var(--text-md); font-weight: var(--weight-semibold); margin-bottom: var(--space-3xs); }
+.value p { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+/* --- Processus (étapes) -------------------------------- */
+.steps { counter-reset: step; }
+.step { position: relative; padding-top: var(--space-lg); }
+.step__num {
+  counter-increment: step;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--blue-300);
+}
+.step__num::before { content: "0" counter(step); }
+.step h3 { font-family: var(--font-body); font-size: var(--text-md); font-weight: var(--weight-semibold); margin: var(--space-2xs) 0; }
+.step p { color: var(--color-text-muted); font-size: var(--text-sm); }
+.step::after {
+  content: "";
+  position: absolute; top: var(--space-lg); left: 0;
+  width: 32px; height: 3px; border-radius: 2px;
+  background: var(--blue-200);
+}
+
+/* --- Équipe -------------------------------------------- */
+.team-member { text-align: left; }
+.team-member__name { font-family: var(--font-display); font-size: var(--text-lg); margin-top: var(--space-md); }
+.team-member__role { font-size: var(--text-sm); color: var(--color-text-subtle); margin-top: var(--space-3xs); }
+
+/* --- Bande CTA ----------------------------------------- */
+.cta-band { text-align: center; }
+.cta-band h2 { color: var(--white); max-width: 18ch; margin-inline: auto; }
+.cta-band p { color: var(--blue-100); max-width: 50ch; margin: var(--space-md) auto var(--space-lg); }
+.cta-band__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center; }
+
+/* --- Contact ------------------------------------------- */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+.contact__info { display: flex; flex-direction: column; gap: var(--space-md); }
+.contact__line { display: flex; gap: var(--space-sm); align-items: flex-start; }
+.contact__line svg { flex: none; color: var(--color-brand); margin-top: 3px; }
+.contact__form { background: var(--white); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-lg); }
+
+/* =============================================================
+   BREAKPOINTS
+   ============================================================= */
+
+/* Tablette ≥ 640px */
+@media (min-width: 640px) {
+  .grid--2, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .hero__actions { flex-wrap: nowrap; }
+}
+
+/* Desktop ≥ 900px */
+@media (min-width: 900px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
+  .contact__grid { grid-template-columns: 0.9fr 1.1fr; }
+}
+
+/* =============================================================
+   NAVIGATION MOBILE (≤ 880px)
+   ============================================================= */
+@media (max-width: 880px) {
+  .nav-toggle { display: flex; }
+  .nav {
+    position: fixed;
+    inset: var(--header-h) 0 auto 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-sm) var(--gutter) var(--space-lg);
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+  }
+  .nav[data-open="true"] { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav__list { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .nav__link { display: block; padding: var(--space-sm) 0; border-bottom: 1px solid var(--grey-100); }
+  .nav__link::after { display: none; }
+  .nav .btn { margin-top: var(--space-md); }
+  .header-actions .btn--primary { display: none; } /* CTA repliée dans le menu sur mobile */
+}
+
+/* Footer responsive */
+@media (max-width: 880px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+}
+@media (max-width: 540px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}

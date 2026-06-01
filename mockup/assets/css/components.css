@@ -1,0 +1,305 @@
+/* =============================================================
+   COMPOSANTS RÉUTILISABLES
+   Boutons, en-tête, pied de page, cartes, badges, formulaire.
+   Charge APRÈS base.css.
+   ============================================================= */
+
+/* --- Boutons ------------------------------------------- */
+.btn {
+  --_bg: var(--color-cta);
+  --_fg: var(--color-on-brand);
+  --_bd: var(--color-cta);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  padding: 0.85em 1.6em;
+  border: 1.5px solid var(--_bd);
+  border-radius: var(--radius-pill);
+  background: var(--_bg);
+  color: var(--_fg);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.btn:hover { transform: translateY(-1px); color: var(--_fg); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary { --_bg: var(--color-cta); --_bd: var(--color-cta); --_fg: var(--white); }
+.btn--primary:hover { --_bg: var(--color-cta-hover); --_bd: var(--color-cta-hover); }
+
+.btn--ghost {
+  --_bg: transparent; --_fg: var(--color-brand); --_bd: var(--blue-200);
+}
+.btn--ghost:hover { --_bg: var(--blue-50); --_bd: var(--blue-300); }
+
+/* Variante sur fond bleu */
+.btn--on-brand { --_bg: var(--white); --_fg: var(--blue-700); --_bd: var(--white); }
+.btn--on-brand:hover { --_bg: var(--blue-50); --_bd: var(--blue-50); --_fg: var(--blue-800); }
+
+.btn--block { display: flex; width: 100%; }
+
+/* Lien-action avec flèche (micro-interaction sobre) */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-brand);
+}
+.link-arrow svg { transition: transform var(--dur) var(--ease); }
+.link-arrow:hover svg { transform: translateX(3px); }
+
+/* --- En-tête (sticky) ---------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--white) 88%, transparent);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  height: var(--header-h);
+}
+
+/* Logo (placeholder texte — à remplacer par le SVG officiel) */
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  color: var(--color-brand);
+}
+.brand__name {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: var(--color-brand);
+}
+.brand__sub {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-top: 4px;
+}
+
+/* Navigation */
+.nav { display: flex; align-items: center; gap: var(--space-lg); }
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.nav__link {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding-block: 0.5rem;
+  position: relative;
+}
+.nav__link:hover { color: var(--color-brand); }
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--color-brand);
+  transition: width var(--dur) var(--ease);
+}
+.nav__link:hover::after,
+.nav__link[aria-current="page"]::after { width: 100%; }
+
+.header-actions { display: flex; align-items: center; gap: var(--space-sm); }
+
+/* Bouton hamburger (mobile) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  background: none; border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block; width: 20px; height: 2px;
+  background: var(--color-brand);
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+/* --- Cartes ------------------------------------------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              transform var(--dur) var(--ease);
+}
+.card:hover {
+  border-color: var(--blue-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.card__icon {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+  margin-bottom: var(--space-md);
+}
+.card__icon svg { width: 24px; height: 24px; }
+.card h3 { margin-bottom: var(--space-2xs); }
+.card p { color: var(--color-text-muted); font-size: var(--text-sm); flex: 1; }
+.card .link-arrow { margin-top: var(--space-md); }
+
+/* --- Grilles ------------------------------------------ */
+.grid { display: grid; gap: var(--space-md); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* --- Badge / pastille de conformité -------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-subtle);
+  background: var(--grey-100);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.4em 0.9em;
+}
+
+/* Marqueur visuel pour le contenu à valider par conformité */
+.compliance-note {
+  border-left: 3px solid var(--blue-300);
+  background: var(--blue-50);
+  color: var(--blue-800);
+  font-size: var(--text-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+.compliance-note strong { font-weight: var(--weight-semibold); }
+
+/* --- Statistiques (preuve sociale) --------------------- */
+.stat { text-align: center; }
+.stat__num {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-brand);
+  line-height: 1;
+}
+.section--brand .stat__num { color: var(--white); }
+.stat__label {
+  display: block;
+  margin-top: var(--space-2xs);
+  font-size: var(--text-sm);
+  color: var(--color-text-subtle);
+}
+.section--brand .stat__label { color: var(--blue-100); }
+
+/* --- Photo placeholder (équipe / portraits) ------------ */
+.photo-ph {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background:
+    repeating-linear-gradient(135deg, var(--grey-100) 0 12px, var(--grey-50) 12px 24px);
+  border: 1px dashed var(--blue-200);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+  text-align: center;
+  padding: var(--space-sm);
+}
+
+/* --- Formulaire ---------------------------------------- */
+.field { display: flex; flex-direction: column; gap: var(--space-2xs); margin-bottom: var(--space-md); }
+.field label { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text); }
+.field input, .field textarea, .field select {
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  padding: 0.8em 1em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none;
+  border-color: var(--blue-400);
+  box-shadow: var(--focus-ring);
+}
+.field textarea { resize: vertical; min-height: 120px; }
+.field--required label::after { content: " *"; color: var(--blue-500); }
+
+/* --- Pied de page -------------------------------------- */
+.site-footer {
+  background: var(--blue-900);
+  color: var(--blue-100);
+  padding-block: var(--space-2xl) var(--space-lg);
+  font-size: var(--text-sm);
+}
+.site-footer a { color: var(--blue-100); }
+.site-footer a:hover { color: var(--white); }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.site-footer .brand__name { color: var(--white); }
+.site-footer .brand__sub { color: var(--blue-300); }
+.footer-col h4 { color: var(--white); font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: var(--tracking-wide); text-transform: uppercase; margin-bottom: var(--space-md); }
+.footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-2xs); }
+.footer-legal {
+  padding-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  color: var(--blue-300);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+.footer-affiliation {
+  display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center;
+  padding: var(--space-md) 0;
+}
+.footer-affiliation .logo-ph {
+  border: 1px dashed var(--blue-400);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2xs) var(--space-sm);
+  color: var(--blue-200);
+  font-size: var(--text-xs);
+}
